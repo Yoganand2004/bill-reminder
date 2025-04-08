@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Bill Reminder</title>
@@ -12,5 +12,117 @@
         <button type="submit">Set Reminder</button>
     </form>
     <script src="/static/script.js"></script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bill Payment Reminder</title>
+  <link rel="manifest" href="/manifest.json" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="datetime-local"] {
+      width: 100%;
+      padding: 0.7rem;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #666;
+    }
+  </style>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function () {
+      OneSignal.init({
+        appId: "0d584f64-bf9d-4418-89d9-40c1ac5d04ba", // <-- Replace this
+      });
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>💡 Bill Payment Reminder</h1>
+    <input type="text" id="billName" placeholder="Enter Bill Name" required />
+    <input type="datetime-local" id="reminderTime" required />
+    <button onclick="setReminder()">Set Reminder</button>
+    <footer>
+      Notifications powered by OneSignal<br />
+      ⏰ Don’t miss your important payments!
+    </footer>
+  </div>
+
+  <script>
+    function setReminder() {
+      const name = document.getElementById('billName').value;
+      const time = new Date(document.getElementById('reminderTime').value).getTime();
+      const now = new Date().getTime();
+      const delay = time - now;
+
+      if (!name || delay <= 0) {
+        alert('Enter a valid bill name and future time.');
+        return;
+      }
+
+      setTimeout(() => {
+        OneSignal.sendSelfNotification(
+          `${name} Reminder`,
+          "Time to pay your bill!",
+          'https://bill-reminder.onrender.com',
+          null
+        );
+      }, delay);
+
+      alert('Reminder set successfully!');
+    }
+  </script>
 </body>
 </html>
