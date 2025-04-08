@@ -1,7 +1,7 @@
 window.OneSignal = window.OneSignal || [];
 OneSignal.push(function() {
     OneSignal.init({
-        appId: "YOUR_ONESIGNAL_APP_ID"  // Replace with your actual App ID
+        appId: "0d584f64-bf9d-4418-89d9-40c1ac5d04ba"  // Replace with your actual App ID
     });
 });
 
